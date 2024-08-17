@@ -1,1 +1,17 @@
-<p>categories works!</p>
+<div class="container my-5">
+    <h2 class="text-main fw-bolder text-center">CATEGORIES</h2>
+    <div class="row">
+        @for (category of allCategories; track $index) {
+        <div class="col-md-4 my-5">
+            <div class="card shadow shadow-sm product">
+                <div class="overflow-hidden">
+                    <img [src]="category.image" class="" alt="">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title text-center fw-bold">{{category.name}}</h5>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>

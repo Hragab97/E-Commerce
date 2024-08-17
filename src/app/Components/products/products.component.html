@@ -1,1 +1,19 @@
-<p>products works!</p>
+<div class="container my-5">
+    <h2 class="text-main fw-bolder text-center">PRODUCTS</h2>
+    <div class="row">
+    @for (product of allProducts; track $index) {
+        <div class="col-md-3">
+            <div class="product shadow shadow-sm p-2 my-5">
+                    <img [src]="product.imageCover" class="w-100" alt="">
+                    <h6 class="text-main">{{product.category.name}}</h6>
+                    <h5 class="text-main fw-bold">{{product.title.split(" ").slice(0,2).join(" ")}}...</h5>
+                    <div class="d-flex justify-content-between">
+                        <span>{{product.price}} EGP</span>
+                        <span><i class="fa-solid fa-star rating-color"></i> {{product.ratingsAverage}}</span>
+                    </div>
+                    <button class="btn bg-main text-white w-100">Add To Cart</button>
+            </div>
+        </div>
+    }
+    </div>
+</div>

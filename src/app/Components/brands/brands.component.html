@@ -1,1 +1,17 @@
-<p>brands works!</p>
+<div class="container my-5">
+    <h2 class="text-main fw-bolder text-center">BRANDS</h2>
+    <div class="row">
+        @for (brand of allBrands; track $index) {
+        <div class="col-md-3 my-5">
+            <div class="card shadow shadow-sm product">
+                <div class="overflow-hidden">
+                    <img [src]="brand.image" alt="">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title text-center fw-bold">{{brand.name}}</h5>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>
