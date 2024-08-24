@@ -1,0 +1,28 @@
+@if (formName.get(controlName)?.errors && formName.get(controlName)?.touched) {
+<div class="alert alert-danger">
+    <ul class="m-0">
+        @if (formName.get(controlName)?.getError('required')) {
+        <li>Input is Required</li>
+        }
+        @if (formName.get(controlName)?.getError('minlength')) {
+        <li>Name must be at least 2 characters long</li>
+        }
+        @if (formName.get(controlName)?.getError('maxlength')) {
+        <li>Name must not exceed 20 characters</li>
+        }
+        @if (formName.get(controlName)?.getError('email')) {
+        <li>Please enter a Valid email</li>
+        }
+        @if (formName.get(controlName)?.getError('pattern')) {
+        <li>inValid Password :Password should be at between 8 - 15 characters long and should contain one number,one
+            upper and lower case character and one special character</li>
+        }
+    </ul>
+</div>
+} @else if (formName.getError('mismatch') && formName.get(controlName)?.touched && controlName == "rePassword") {
+    <div class="alert alert-danger">
+        <ul class="m-0">
+            <li>Password should match</li>
+        </ul>
+    </div>
+    }
