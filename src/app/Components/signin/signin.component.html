@@ -1,1 +1,40 @@
-<p>signin works!</p>
+<section>
+    <div class="container pt-5">
+        <h1 class="fw-bolder ">LogIn Now:</h1>
+        <form [formGroup]="logInForm" (ngSubmit)="sendData()">
+
+            <input [ngClass]="
+            {
+                'is-valid' : !logInForm.get('email')?.errors && (logInForm.get('email')?.touched || logInForm.get('email')?.dirty),
+                'is-invalid' : logInForm.get('email')?.errors && (logInForm.get('email')?.touched || logInForm.get('email')?.dirty),
+            }" formControlName="email" type="email" class="form-control my-4" placeholder="Type your Email...">
+            <alertError [formName]="logInForm" controlName="email" />
+
+            <input [ngClass]="
+            {
+                'is-valid' : !logInForm.get('password')?.errors && (logInForm.get('password')?.touched || logInForm.get('password')?.dirty),
+                'is-invalid' : logInForm.get('password')?.errors && (logInForm.get('password')?.touched || logInForm.get('password')?.dirty),
+            }" formControlName="password" type="password" class="form-control my-4"
+                placeholder="Type your Password...">
+            <alertError [formName]="logInForm" controlName="password" />
+
+            <div class="text-danger mb-3">{{errorMessage}}</div>
+            <div class="d-flex justify-content-between align-items-center">
+                
+            <button [disabled]="logInForm.invalid || isBtnSubmit" class="btn bg-main text-white w-25">
+                @if (!isBtnSubmit) {
+                LogIn
+                }
+                @else if(isBtnSubmit) {
+                <i class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </i>
+                }
+            </button>
+
+            <a [routerLink]="['/forgotPassword']" class="link-primary ms-auto">Forgot Password?</a>
+            </div>
+
+        </form>
+    </div>
+</section>

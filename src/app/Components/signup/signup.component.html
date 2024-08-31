@@ -1,21 +1,49 @@
 <section>
     <div class="container pt-5">
-        <h1 class="fw-bold text-main">Register Now:</h1>
+        <h1 class="fw-bolder ">Register Now:</h1>
         <form [formGroup]="registerform" (ngSubmit)="sendData()">
-            <input formControlName="name" type="text" class="form-control my-4" placeholder="Type your Name...">
-            <alertError [formName]="registerform" controlName="name"/>
+            <input [ngClass]="
+            {
+                'is-valid' : !registerform.get('name')?.errors && (registerform.get('name')?.touched || registerform.get('name')?.dirty),
+                'is-invalid' : registerform.get('name')?.errors && (registerform.get('name')?.touched || registerform.get('name')?.dirty),
+            }" formControlName="name" type="text" class="form-control my-4" placeholder="Type your Name...">
+            <alertError [formName]="registerform" controlName="name" />
 
-            <input formControlName="email" type="email" class="form-control my-4" placeholder="Type your Email...">
-            <alertError [formName]="registerform" controlName="email"/>
+            <input [ngClass]="
+            {
+                'is-valid' : !registerform.get('email')?.errors && (registerform.get('email')?.touched || registerform.get('email')?.dirty),
+                'is-invalid' : registerform.get('email')?.errors && (registerform.get('email')?.touched || registerform.get('email')?.dirty),
+            }" formControlName="email" type="email" class="form-control my-4" placeholder="Type your Email...">
+            <alertError [formName]="registerform" controlName="email" />
 
-            <input formControlName="password" type="password" class="form-control my-4"
+            <input [ngClass]="
+            {
+                'is-valid' : !registerform.get('password')?.errors && (registerform.get('password')?.touched || registerform.get('password')?.dirty),
+                'is-invalid' : registerform.get('password')?.errors && (registerform.get('password')?.touched || registerform.get('password')?.dirty),
+            }" formControlName="password" type="password" class="form-control my-4"
                 placeholder="Type your Password...">
-                <alertError [formName]="registerform" controlName="password"/>
+            <alertError [formName]="registerform" controlName="password" />
 
-            <input formControlName="rePassword" type="password" class="form-control my-4"
+            <input [ngClass]="
+            {
+                'is-valid' : !registerform.get('rePassword')?.errors && (registerform.get('rePassword')?.touched || registerform.get('rePassword')?.dirty),
+                'is-invalid' : registerform.get('rePassword')?.errors && (registerform.get('rePassword')?.touched || registerform.get('rePassword')?.dirty),
+            }" formControlName="rePassword" type="password" class="form-control my-4"
                 placeholder="Type your rePassword...">
-                <alertError [formName]="registerform" controlName="rePassword"/>
-            <button class="btn bg-main text-white w-100" [disabled]=registerform.invalid>Register</button>
+            <alertError [formName]="registerform" controlName="rePassword" />
+
+            <div class="text-danger mb-3">{{errorMessage}}</div>
+
+            <button [disabled]="registerform.invalid || isBtnSubmit" class="btn bg-main text-white w-100">
+                @if (!isBtnSubmit) {
+                Register
+                }
+                @else if(isBtnSubmit) {
+                <i class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </i>
+                }
+            </button>
         </form>
     </div>
 </section>
