@@ -30,7 +30,7 @@ export class CartService {
     })
   }
 
-  detletSpecificCartItem = (id:string): Observable<any> => {
+  deleteSpecificCartItem = (id:string): Observable<any> => {
  
     return this._HttpClient.delete(baseUrl + `api/v1/cart/${id}`, {
       headers: this.myHeaders

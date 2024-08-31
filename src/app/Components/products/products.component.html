@@ -2,19 +2,33 @@
     <h2 class="text-main fw-bolder text-center">PRODUCTS</h2>
     <input [(ngModel)] = "text" type="search" placeholder="Search Product..." class="form-control w-50 mx-auto my-2">
     <div class="row">
-    @for (product of allProducts | search: text; track product._id) {
+        @for (product of allProducts | search: text; track product._id) {
+            
         <div class="col-md-3">
-            <div class="product shadow shadow-sm p-2 my-5">
+
+            <div class="product shadow shadow-sm p-2 my-5" >
+                <div  [routerLink]="['/details/'+ product._id ]">
                     <img [src]="product.imageCover" class="w-100" alt="">
                     <h6 class="text-main">{{product.category.name | uppercase}}</h6>
                     <h5 class="text-main fw-bold">{{product.title.split(" ").slice(0,2).join(" ")}}...</h5>
                     <div class="d-flex justify-content-between">
                         <span>{{product.price | currency : 'GBP'}}</span>
-                        <span><i class="fa-solid fa-star rating-color"></i> {{product.ratingsAverage}}</span>
+                        <span>
+                            @for (num of [1,2,3,4,5].slice(0,product.ratingsAverage); track $index) {
+                                <i class="fa-solid fa-star rating-color"></i>
+                            }
+                            @if (product.ratingsAverage % 1 !== 0) {
+                                <i class="fa-solid fa-star-half-stroke rating-color"></i>
+                            }
+                           
+                            {{product.ratingsAverage}}
+                        </span>
                     </div>
-                    <button class="btn bg-main text-white w-100">Add To Cart</button>
+                </div>
+                <button (click)="addToCart(product._id)" class="btn bg-main text-white w-100">Add To Cart</button>
+                
             </div>
         </div>
-    }
+        }
     </div>
 </div>

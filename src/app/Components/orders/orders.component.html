@@ -1,1 +1,19 @@
-<p>orders works!</p>
+<section class="bg-main-light rounded-4 shadow p2 my-2 w-75 mx-auto">
+    <h1 class="text-center">Shipping Address :</h1>
+
+    <form [formGroup]="orders" (ngSubmit)="orderSubmit()" class="p-5">
+        <div class="my-1">
+            <label for="details">Details</label>
+            <textarea formControlName="details" id="details" class="form-control"></textarea>
+        </div>
+        <div class="my-1">
+            <label for="phone">Phone</label>
+            <input formControlName="phone" id="phone" type="tel" class="form-control">
+        </div>
+        <div class="my-1">
+            <label for="city">City</label>
+            <input formControlName="city" id="city" type="text" class="form-control">
+        </div>
+        <button class="btn bg-main text-white w-100" type="submit" >Place Your Order</button>
+    </form>
+</section>

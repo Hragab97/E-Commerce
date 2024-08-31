@@ -3,9 +3,10 @@ import { provideRouter, withHashLocation, withInMemoryScrolling, withViewTransit
 
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
-import { HttpClientModule, provideHttpClient } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
+import { provideToastr } from 'ngx-toastr';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes, withHashLocation() ,withViewTransitions(),withInMemoryScrolling({scrollPositionRestoration:'top'})), provideClientHydration(),provideHttpClient(),provideAnimations()]
+  providers: [provideRouter(routes, withHashLocation() ,withViewTransitions(),withInMemoryScrolling({scrollPositionRestoration:'top'})), provideClientHydration(),provideHttpClient(),provideAnimations(),provideToastr(),]
 };

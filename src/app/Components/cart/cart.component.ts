@@ -2,17 +2,21 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CartService } from '../../core/services/cart.service';
 import { ICart } from '../../core/interface/icart';
 import { CurrencyPipe } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CurrencyPipe],
+  imports: [CurrencyPipe, RouterLink],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss'
 })
 export class CartComponent implements OnInit {
 
+
   private readonly _CartService = inject(CartService);
+  private readonly _ToastrService= inject(ToastrService)
 
   cartDetails: ICart = {} as ICart
 
@@ -28,10 +32,11 @@ export class CartComponent implements OnInit {
   }
 
   removeItem(id: string): void {
-    this._CartService.detletSpecificCartItem(id).subscribe({
+    this._CartService.deleteSpecificCartItem(id).subscribe({
       next: (res) => {
         console.log(res)
         this.cartDetails = res.data
+        this._ToastrService.error("Product removed", 'Fresh Cart')
       }, error(err) {
         console.log(err)
       },
@@ -43,6 +48,7 @@ export class CartComponent implements OnInit {
       this._CartService.updateSpecificCartItem(id, count).subscribe({
         next: (res) => {
           console.log(res)
+          this._ToastrService.info("Product updated successfully", 'Fresh Cart')
           this.cartDetails = res.data
         }, error(err) {
           console.log(err)
@@ -58,6 +64,8 @@ clearCart():void{
       console.log(res)
       if (res.message == "success") {
         this.cartDetails = {} as ICart
+        this._ToastrService.error("All products are removed", 'Fresh Cart')
+
       }
     },error(err) {
       console.log(err)
