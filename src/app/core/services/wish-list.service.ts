@@ -16,7 +16,7 @@ export class WishListService {
 
   addProductToWishlist = (id: string): Observable<any> => {
  
-    return this._HttpClient.post(baseUrl + `api/v1/wishlist`, {
+    return this._HttpClient.post(baseUrl + `api/v1/cart`, {
       "productId": id
     }, {
       headers: this.myHeaders
@@ -25,14 +25,14 @@ export class WishListService {
 
   getProductsWishlist = (): Observable<any> => {
  
-    return this._HttpClient.get(baseUrl + `api/v1/wishlist`, {
+    return this._HttpClient.get(baseUrl + `api/v1/cart`, {
       headers: this.myHeaders
     })
   }
 
   deleteSpecificWishlistItem = (id:string): Observable<any> => {
  
-    return this._HttpClient.delete(baseUrl + `api/v1/wishlist/${id}`, {
+    return this._HttpClient.delete(baseUrl + `api/v1/cart/${id}`, {
       headers: this.myHeaders
     })
   }

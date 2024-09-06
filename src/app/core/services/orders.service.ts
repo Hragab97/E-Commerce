@@ -26,4 +26,24 @@ export class OrdersService {
 )
   }
 
+  getAllOrders = (): Observable<any> => {
+ 
+    return this._HttpClient.get(`${baseUrl}api/v1/orders/`, 
+{
+      headers: this.myHeaders
+    }
+)
+  }
+
+
+  getUserOrders = (): Observable<any> => {
+ 
+    return this._HttpClient.get(`${baseUrl}api/v1/orders/user/66a621bced0dc0016cd567ff`, 
+{
+      headers: this.myHeaders
+    }
+)
+  }
+
+
 }

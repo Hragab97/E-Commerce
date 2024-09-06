@@ -14,6 +14,7 @@ import { authGuard } from './core/guards/auth.guards';
 import { ForgotPasswordComponent } from './Components/forgot-password/forgot-password.component';
 import { ProductDetailsComponent } from './Components/product-details/product-details.component';
 import { WishListComponent } from './Components/wish-list/wish-list.component';
+import { AllordersComponent } from './Components/allorders/allorders.component';
 
 export const routes: Routes = [
     {
@@ -35,6 +36,7 @@ export const routes: Routes = [
         {path:"orders/:id",title:"Orders",component:OrdersComponent},
         {path:"details/:id",title:"Details",component:ProductDetailsComponent},
         {path:"wishlist",title:"Wish List",component:WishListComponent},
+        {path:"allorders",title:"My Orders",component:AllordersComponent},
     ]},
     {path:'**',title:"404",component:NotFoundComponent}
 ];

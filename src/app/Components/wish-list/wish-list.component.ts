@@ -4,6 +4,8 @@ import { IWish } from '../../core/interface/iwish';
 import { CurrencyPipe } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from '../../core/services/cart.service';
+import { ICart } from '../../core/interface/icart';
+
 
 @Component({
   selector: 'app-wish-list',
@@ -18,7 +20,7 @@ export class WishListComponent implements OnInit {
   private readonly _ToastrService=inject(ToastrService)
   private readonly _CartService=inject(CartService)
 
-  wishListDetails: IWish[] = [];
+  wishListDetails: ICart = {} as ICart
 
   ngOnInit(): void {
     this._WishListService.getProductsWishlist().subscribe({

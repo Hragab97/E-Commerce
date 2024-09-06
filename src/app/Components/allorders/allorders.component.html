@@ -1,0 +1,34 @@
+<section class="bg-main-light rounded-4 sahdow p-4 my-2 w-75 mx-auto">
+
+    <div class="d-flex justify-content-between align-items-center">
+        <h1 class="h2 text-center">Orders</h1>
+    </div>
+
+    @for (item of allOrders; track $index) {
+
+    <div class="row mb-1 border-bottom">
+        <div class="col-md-3 -flex justify-content-between align-items-center">
+            <div class="p-2">
+                <p class="text-main fw-bold">{{item.user.name}}</p>
+                <p>{{item.shippingAddress.city}}</p>
+            </div>
+        </div>
+        <div class="col-md-4 d-flex justify-content-between align-items-center">
+            <div class="p-2">
+                <p><span class="text-main">Email :</span> {{item.user.email}}</p>
+                <p><span class="text-main">Tele :</span> {{item.user.phone}}</p>
+            </div>
+        </div>
+        <div class="col-md-5 d-flex justify-content-between align-items-center">
+            <div class="p-2">
+                <p><span class="text-main">Date :</span>{{item.createdAt | date}}</p>
+                <p><span class="text-main">Price :</span> {{item.totalOrderPrice | currency : 'GBP' }}</p>
+            </div>
+            <div class="p-2">
+                <p class=" text-main">{{item.paymentMethodType}}</p>
+            </div>
+        </div>
+
+    </div>
+    }
+</section>
