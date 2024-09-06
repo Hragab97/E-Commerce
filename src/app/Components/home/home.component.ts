@@ -76,6 +76,8 @@ export class HomeComponent implements OnInit {
       next: (res) => {
         console.log(res)
         this._ToastrService.success(res.message, 'Fresh cart')
+        this._CartService.cartNumber.next(res.numOfCartItems)
+        console.log(this._CartService.cartNumber)
       }, error(err) {
         console.log(err)
 
@@ -89,6 +91,7 @@ export class HomeComponent implements OnInit {
       next: (res) => {
         console.log(res)
         this._ToastrService.success("Product added successfully to your Wishlist", 'Fresh cart')
+        this._CartService.cartNumber.next(res.numOfCartItems)
       }, error(err) {
         console.log(err)
       },

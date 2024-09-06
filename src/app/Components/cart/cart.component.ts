@@ -37,6 +37,7 @@ export class CartComponent implements OnInit {
         console.log(res)
         this.cartDetails = res.data
         this._ToastrService.error("Product removed", 'Fresh Cart')
+        this._CartService.cartNumber.next(res.numOfCartItems)
       }, error(err) {
         console.log(err)
       },
@@ -65,6 +66,8 @@ clearCart():void{
       if (res.message == "success") {
         this.cartDetails = {} as ICart
         this._ToastrService.error("All products are removed", 'Fresh Cart')
+        this._CartService.cartNumber.next(0)
+
 
       }
     },error(err) {
