@@ -25,8 +25,21 @@ export class ProductsComponent implements OnInit {
 
   allProducts: Product[] = [];
   text:string = ""
+  cartDetails: string[] = [];
+  wishListData: string[] = [];
+
+
 
 constructor(private _ProductsService:ProductsService){}
+
+getCartListUser() {
+  this._CartService.getLoggedUserCartList().subscribe({
+    next: (res) => {
+      console.log(res);
+      this.cartDetails = res.data.map((item: any) => item._id);
+    },
+  });
+}
 
 getProducts = ()=>{
   this._ProductsService.getProducts().subscribe({
@@ -46,36 +59,46 @@ ngOnInit(): void {
 }
 
 
-
 addToCart(_id: string): void {
   this._CartService.addProductToCart(_id).subscribe({
     next: (res) => {
       console.log(res)
       this._ToastrService.success(res.message, 'Fresh cart')
       this._CartService.cartNumber.next(res.numOfCartItems)
+      console.log(this._CartService.cartNumber)
     }, error(err) {
       console.log(err)
-      
+
     }
   })
 }
 
-
-addToWishList(_id: string):void{
-
-  this._WishListService.addProductToWishlist(_id).subscribe({
-    next:(res)=>{
-       console.log(res)
-       this._ToastrService.success("Product added successfully to your Wishlist", 'Fresh cart')
-       this._CartService.cartNumber.next(res.numOfCartItems)
-      }, error(err) {
-      console.log(err)
+addFav(productId: string): void {
+  this._WishListService.addItemToWishList(productId).subscribe({
+    next: (response) => {
+      console.log(response);
+      this._ToastrService.success(response.message);
+      this.wishListData = response.data;
+      this._WishListService.whishItemNumber.next(response.data.length);
     },
-  })
-  
-    }
-  
+    error: (error) => {
+      console.log(error);
+    },
+  });
+}
 
+removeFav(productId: string): void {
+  this._WishListService.removeItemFromWishList(productId).subscribe({
+    next: (response) => {
+      this._ToastrService.success(response.message);
+      this.wishListData = response.data;
+      this._WishListService.whishItemNumber.next(response.data.length);
+    },
+    error: (error) => {
+      console.log(error);
+    },
+  });
+}
 
     
 

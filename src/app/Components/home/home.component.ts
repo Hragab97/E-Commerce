@@ -5,18 +5,19 @@ import { AuthService } from '../../core/services/auth.service';
 import { CarouselModule, OwlOptions } from 'ngx-owl-carousel-o';
 import { CategoriesSliderComponent } from '../categories-slider/categories-slider.component';
 import { RouterLink } from '@angular/router';
-import { CurrencyPipe, UpperCasePipe } from '@angular/common';
+import { CommonModule, CurrencyPipe, UpperCasePipe } from '@angular/common';
 import { SearchPipe } from '../../core/pipes/search.pipe';
 import { FormsModule } from '@angular/forms';
 import { CartService } from '../../core/services/cart.service';
 import { ToastrService } from 'ngx-toastr';
 import { WishListService } from '../../core/services/wish-list.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ICart } from '../../core/interface/icart';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CarouselModule, FormsModule, CategoriesSliderComponent, RouterLink, UpperCasePipe, CurrencyPipe, SearchPipe],
+  imports: [CarouselModule, FormsModule, CategoriesSliderComponent, RouterLink, UpperCasePipe, CurrencyPipe, SearchPipe, CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -29,6 +30,10 @@ export class HomeComponent implements OnInit {
 
   allProducts: Product[] = [];
   text: string = ""
+  wishListData: string[] = [];
+  cartDetails: string[] = [];
+
+
 
   customOptionsMain: OwlOptions = {
 
@@ -48,6 +53,16 @@ export class HomeComponent implements OnInit {
 
   constructor(private _ProductsService: ProductsService, private _token: AuthService) {
     this._token.saveUserData()
+  }
+
+
+    getCartListUser() {
+    this._CartService.getLoggedUserCartList().subscribe({
+      next: (res) => {
+        console.log(res);
+        this.cartDetails = res.data.map((item: any) => item._id);
+      },
+    });
   }
 
   getProducts = () => {
@@ -84,19 +99,41 @@ export class HomeComponent implements OnInit {
       }
     })
   }
-
-  addToWishList(_id: string): void {
-
-    this._WishListService.addProductToWishlist(_id).subscribe({
+  getWishListUser() {
+    this._WishListService.getLoggedUserWishlist().subscribe({
       next: (res) => {
-        console.log(res)
-        this._ToastrService.success("Product added successfully to your Wishlist", 'Fresh cart')
-        this._CartService.cartNumber.next(res.numOfCartItems)
-      }, error(err) {
-        console.log(err)
+        console.log(res);
+        this.wishListData = res.data.map((item: any) => item._id);
       },
-    })
-
+    });
   }
 
+  addFav(productId: string): void {
+    this._WishListService.addItemToWishList(productId).subscribe({
+      next: (response) => {
+        console.log(response);
+        this._ToastrService.success(response.message);
+        this.wishListData = response.data;
+        this._WishListService.whishItemNumber.next(response.data.length);
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
+  }
+
+  removeFav(productId: string): void {
+    this._WishListService.removeItemFromWishList(productId).subscribe({
+      next: (response) => {
+        this._ToastrService.success(response.message);
+        this.wishListData = response.data;
+        this._WishListService.whishItemNumber.next(response.data.length);
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });
+  }
+
+  
 }

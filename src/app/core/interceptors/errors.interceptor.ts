@@ -13,6 +13,7 @@ const _ToastrService=inject(ToastrService)
     console.log( 'interceptors: ' , err.error.message)
 
     _ToastrService.error(err.error.message, 'Fresh Cart')
+    console.log(err)
 
     return throwError(() => err)
     

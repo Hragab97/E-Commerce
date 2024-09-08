@@ -37,6 +37,7 @@ export class SigninComponent {
 
           if (res.message == "success") {
             localStorage.setItem('token',res.token)
+            console.log('token',res.token)
             this._AuthService.saveUserData()
             this._Router.navigate(['/home'])
             this.isBtnSubmit = false;

@@ -58,4 +58,11 @@ export class CartService {
   }
 )
   }
+
+
+  getLoggedUserCartList(): Observable<any> {
+    return this._HttpClient.get(baseUrl + `api/v1/cart`,  {
+      headers: this.myHeaders
+    });
+  }
 }
