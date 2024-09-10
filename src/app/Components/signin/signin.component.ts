@@ -32,8 +32,11 @@ export class SigninComponent {
     this.isBtnSubmit = true;
     if (this.logInForm.valid) {
       console.log(this.logInForm)
+  
       this._AuthService.signIn(this.logInForm.value).subscribe({
         next: (res) => {
+
+          console.log(res.token)
 
           if (res.message == "success") {
             localStorage.setItem('token',res.token)

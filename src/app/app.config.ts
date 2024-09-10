@@ -2,7 +2,7 @@ import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideRouter, withHashLocation, withInMemoryScrolling, withViewTransitions } from '@angular/router';
 
 import { routes } from './app.routes';
-import { provideClientHydration } from '@angular/platform-browser';
+import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { HttpClient, provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
@@ -18,6 +18,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 export const appConfig: ApplicationConfig = {
   providers: [
+    BrowserModule,
     provideRouter(routes,
       withViewTransitions(),
       withInMemoryScrolling({ scrollPositionRestoration: 'top' }))

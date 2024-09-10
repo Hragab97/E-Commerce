@@ -32,6 +32,10 @@ export class HomeComponent implements OnInit {
   text: string = ""
   wishListData: string[] = [];
   cartDetails: string[] = [];
+  products: Product[] = [];
+
+
+  addedToWishList: boolean = false;
 
 
 
@@ -81,7 +85,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
 
-
+    this.getWishListUser();
     this.getProducts();
   }
 
@@ -99,6 +103,7 @@ export class HomeComponent implements OnInit {
       }
     })
   }
+
   getWishListUser() {
     this._WishListService.getLoggedUserWishlist().subscribe({
       next: (res) => {
@@ -134,6 +139,8 @@ export class HomeComponent implements OnInit {
       },
     });
   }
+
+
 
   
 }

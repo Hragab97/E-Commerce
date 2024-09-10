@@ -56,6 +56,7 @@ getProducts = ()=>{
 
 ngOnInit(): void {
   this.getProducts();
+  this.getWishListUser();
 }
 
 
@@ -100,6 +101,15 @@ removeFav(productId: string): void {
   });
 }
 
+
+getWishListUser() {
+  this._WishListService.getLoggedUserWishlist().subscribe({
+    next: (res) => {
+      console.log(res);
+      this.wishListData = res.data.map((item: any) => item._id);
+    },
+  });
+}
     
 
 }

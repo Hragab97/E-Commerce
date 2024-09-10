@@ -36,7 +36,7 @@ export class WishListComponent implements OnInit {
       next: (res) => {
         console.log(res.data);
         this.products = res.data;
-        this.wishListData = res.data.map((item: any) => item._id)
+        this.wishListData = res.data.map((product: any) => product._id)
       },
     });
   }

@@ -15,6 +15,7 @@ export class CartService {
   cartNumber : BehaviorSubject<number> = new BehaviorSubject(0);
 
   myHeaders:any = {token: localStorage.getItem('token')};
+  // localStorage.getsetItem('token')
 
   addProductToCart = (id: string): Observable<any> => {
  
