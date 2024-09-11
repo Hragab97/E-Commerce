@@ -59,8 +59,7 @@ export class HomeComponent implements OnInit {
     this._token.saveUserData()
   }
 
-
-    getCartListUser() {
+  getCartListUser() {
     this._CartService.getLoggedUserCartList().subscribe({
       next: (res) => {
         console.log(res);
@@ -82,13 +81,11 @@ export class HomeComponent implements OnInit {
     })
   }
 
-
   ngOnInit(): void {
 
     this.getWishListUser();
     this.getProducts();
   }
-
 
   addToCart(_id: string): void {
     this._CartService.addProductToCart(_id).subscribe({
@@ -139,8 +136,4 @@ export class HomeComponent implements OnInit {
       },
     });
   }
-
-
-
-  
 }
